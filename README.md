@@ -4,20 +4,20 @@
 This app allows Wine collectors and lovers to buy very rare and exceptional bottles of wine. On the other side, people who owns wine but does not appreciate it can sell it. 
 
 ##User Stories 
-•	404: If a page that does not exist a 404 page will appear to redirect me to an existing page
-•	Signup: User can Sign up in the platform to sell or buy a bottle
-•	Login: User can Sign in in the platform to sell or buy a bottle
-•	Logout: User can logout from the platform so his sells are safe / no one can purchase under his name 
-•	Add a bottle for sale: User can add a new bottle for sell
-•	Delete bottle: User can delete any bottle he was selling
-•	User Profile: both Seller and buyer have a profile with a biography, a picture and previous sells or previous purchases. Each of them can check other sellers / buyers’ profile
-•	Payment: as soon as user clicks “buy it”, he can enter his payment information details 
-•	Search & filter: to improve the user’s research he can filter the wine per year / color / country
+- 404: If a page that does not exist a 404 page will appear to redirect me to an existing page
+- Signup: User can Sign up in the platform to sell or buy a bottle
+- Login: User can Sign in in the platform to sell or buy a bottle
+- Logout: User can logout from the platform so his sells are safe / no one can purchase under his name 
+- Add a bottle for sale: User can add a new bottle for sell
+- Delete bottle: User can delete any bottle he was selling
+- User Profile: both Seller and buyer have a profile with a biography, a picture and previous sells or previous purchases. Each of them can check other sellers / buyers’ profile
+- Payment: as soon as user clicks “buy it”, he can enter his payment information details 
+- Search & filter: to improve the user’s research he can filter the wine per year / color / country
 
-Backlog 
-•	Message or comments section: allows user and buyers to discuss about the wine specificity 
-•	Sophisticated payment system
-•	More filter option: grape variety
+##Backlog 
+- Message or comments section: allows user and buyers to discuss about the wine specificity 
+- Sophisticated payment system
+- More filter option: grape variety
 
 
 #Client / Frontend
@@ -101,26 +101,27 @@ Backlog
 
           
 ##Components
-•	SignIn
-•	SignUp
-•	NavBar
-•	Search
-•	Filter
-•	AddWineForm
-•	WineDetail
-•	WineEditForm
-•	ProfileForm
-•	CurrentSales
-•	PastSales
-•	ProfileEditForm
-•	PaymentForm
-•	MessagesPage
+- SignIn
+- SignUp
+- NavBar
+- Search
+- Filter
+- AddWineForm
+- WineDetail
+- WineEditForm
+- ProfileForm
+- CurrentSales
+- PastSales
+- ProfileEditForm
+- PaymentForm
+- MessagesPage
 
 #Server / Backend
-
+<br>
 ##Models
 
-##User model {
+##User model 
+```javascript
 name: {
       type: String,
       required: true,
@@ -145,8 +146,11 @@ name: {
       type: String
     }, 
   }
+```
+
 
 ##Wine model 
+```javascript
 name: {
       type: String,
       required: true,
@@ -179,7 +183,10 @@ user: {
           ref: "User"
     },
   }
+```
 
+##Message Model 
+```javascript
 sender: {
     type: Schema.Types.ObjectId,
     ref: "User"
@@ -194,7 +201,7 @@ sender: {
   },
   previous: Schema.Types.ObjectId
 },
-
+```
 
 
 #API Endpoints (backend routes)
@@ -262,7 +269,4 @@ sender: {
 **GET**	
 - /message/received/:id	
 - Read a message we received
-
-
-
 
