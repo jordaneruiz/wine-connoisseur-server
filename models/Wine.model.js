@@ -6,11 +6,11 @@ const mongoose = require("mongoose");
 const wineSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    //required: true,
   },
   year: {
     type: Number,
-    required: true,
+    //required: true,
     unique: true,
   },
   description: {
@@ -18,15 +18,15 @@ const wineSchema = new mongoose.Schema({
   },
   country: {
     type: String,
-    required: true,
+    //required: true,
   },
   region: {
     type: String,
-    required: true,
+    //required: true,
   },
   grapeVariety: {
     type: String,
-    required: true,
+    //required: true,
   },
   color: {
     type: String,
@@ -46,5 +46,5 @@ const wineSchema = new mongoose.Schema({
   },
 });
 
-const WineModel = mongoose.model("User", userSchema);
+const WineModel = mongoose.model("Wine", wineSchema);
 module.exports = WineModel;

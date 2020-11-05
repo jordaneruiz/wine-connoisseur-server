@@ -1,5 +1,4 @@
 const express = require("express");
-const { route } = require(".");
 const router = express.Router();
 
 let WineModel = require("../models/Wine.model");
@@ -36,7 +35,7 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
       picture,
     } = req.body;
 
-    //console.log(req.body)
+    console.log(req.body)
 
     WineModel.create({
       name,
@@ -94,7 +93,7 @@ router.delete('/bottlel/:bottleId', /*isLoggedIn, */ (req, res) => {
 
 //for the seller to edit one of his "for sale bottle"
 router.patch('/bottlel/:bottleId', /*isLoggedIn,*/ (req, res) => {
-    let id = req.params.id
+    let bottleId = req.params.id
     const {
       name,
       year,

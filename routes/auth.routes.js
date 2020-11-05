@@ -13,6 +13,7 @@ const UserModel = require('../models/User.model');
 router.post('/signup', (req, res) => {
   const {username, email, password } = req.body;
   console.log(username, email, password);
+  console.log("req.body is :", req.body)
 
   if (!username || !email || !password) {
       res.status(500)
@@ -31,7 +32,7 @@ router.post('/signup', (req, res) => {
       return;  
   }
 
-  const myPassRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/);
+  const myPassRegex = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/);
   if (!myPassRegex.test(password)) {
     res.status(500)
         .json({
@@ -46,10 +47,12 @@ router.post('/signup', (req, res) => {
       .then((salt) => {
         console.log('Salt: ', salt);
         bcrypt.hash(password, salt)
-          .then((password) => {
-            UserModel.create({email, username, password})
+          .then((passwordH) => {
+            console.log("passwordH is :", passwordH)
+            UserModel.create({email, username, passwordH})
               .then((user) => {
-                user.password = "***";
+                console.log("user is:", user)
+                user.passwordH = "***";
                 req.session.loggedInUser = user;
                 console.log(req.session)
                 res.status(200).json(user);
@@ -86,7 +89,7 @@ router.post('/signin', (req, res) => {
   const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
   if (!myRegex.test(email)) {
       res.status(500).json({
-          error: 'Email format not correct',
+          error: '1-Email format not correct',
       })
       return;  
   }
@@ -116,7 +119,7 @@ router.post('/signin', (req, res) => {
         })
         .catch(() => {
             res.status(500).json({
-                error: 'Email format not correct',
+                error: '2-Email format not correct',
             })
           return; 
         });
@@ -140,7 +143,7 @@ res
 .send();
 })
 
-router.get("/user", isLoggedIn, (req, res, next) => {
+router.get("/user", /*isLoggedIn,*/ (req, res, next) => {
 res.status(200).json(req.session.loggedInUser);
 });
 

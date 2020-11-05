@@ -8,8 +8,8 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const MongoStore = require('connect-mongo') /*(session)*/;
 const session = require('express-session');
+const MongoStore = require('connect-mongo') (session);
 //require('./config/database.config') // when I will have cloudinary
 
 
@@ -47,10 +47,7 @@ app.use(cookieParser());
 
 
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 
@@ -80,13 +77,23 @@ app.use(
 
 
 
-// default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
 
 
+//Register routes
 
-const index = require('./routes/index');
-app.use('/', index);
+// const index = require('./routes/index');
+// app.use('/', index);
+
+const wineRoutes = require('./routes/wine.route');
+app.use('/api', wineRoutes);
+
+const authRoutes = require('./routes/auth.routes')
+app.use('/api', authRoutes);
+
+const profileRoutes = require('./routes/profile.route')
+app.use('/api', profileRoutes);
+
+
 
 
 module.exports = app;
