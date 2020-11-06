@@ -11,7 +11,9 @@ const wineSchema = new mongoose.Schema({
   year: {
     type: Number,
     //required: true,
-    unique: true,
+  },
+  price: {
+    type: String,
   },
   description: {
     type: String,
@@ -24,7 +26,7 @@ const wineSchema = new mongoose.Schema({
     type: String,
     //required: true,
   },
-  grapeVariety: {
+  grappeVariety: {
     type: String,
     //required: true,
   },

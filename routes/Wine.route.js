@@ -9,7 +9,7 @@ let WineModel = require("../models/Wine.model");
 router.get("/bottles", (req, res) => {
   WineModel.find()
     .then((wines) => {
-      res.status(500).json(wines);
+      res.status(200).json(wines);
     })
     .catch((err) => {
       res.status(500).json({
@@ -27,10 +27,11 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
     const {
       name,
       year,
+      price,
       description,
       country,
       region,
-      grapeVariety,
+      grappeVariety,
       color,
       picture,
     } = req.body;
@@ -40,10 +41,11 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
     WineModel.create({
       name,
       year,
+      price,
       description,
       country,
       region,
-      grapeVariety,
+      grappeVariety,
       color,
       picture,
     })
@@ -62,7 +64,7 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
 
 
 //to check a specific bottle's details
-router.get('/bottlel/:bottleId', /*isLoggedIn, */ (req, res) => {
+router.get('/bottle/:bottleId', /*isLoggedIn, */ (req, res) => {
   WineModel.findById(req.params.bottleId)
     .then((resp) => {
       res.status(200).json(resp)
@@ -77,8 +79,8 @@ router.get('/bottlel/:bottleId', /*isLoggedIn, */ (req, res) => {
 
 
 //for the seller to delete one of his "for sale bottle"
-router.delete('/bottlel/:bottleId', /*isLoggedIn, */ (req, res) => {
-  WineModel.findByIdAndDelete(req.params.id)
+router.delete('/bottle/:bottleId', /*isLoggedIn, */ (req, res) => {
+  WineModel.findByIdAndDelete(req.params.bottleId)
   .then((resp) => {
        res.status(200).json(resp)
   })
@@ -92,15 +94,16 @@ router.delete('/bottlel/:bottleId', /*isLoggedIn, */ (req, res) => {
 
 
 //for the seller to edit one of his "for sale bottle"
-router.patch('/bottlel/:bottleId', /*isLoggedIn,*/ (req, res) => {
+router.patch('/bottle/:bottleId', /*isLoggedIn,*/ (req, res) => {
     let bottleId = req.params.id
     const {
       name,
       year,
+      price,
       description,
       country,
       region,
-      grapeVariety,
+      grappeVariety,
       color,
       picture,
     } = req.body;
@@ -108,10 +111,11 @@ router.patch('/bottlel/:bottleId', /*isLoggedIn,*/ (req, res) => {
     WineModel.findByIdAndUpdate(bottleId, {$set: {
       name: name,
       year: year,
+      price: price,
       description: description,
       country: country,
       region: region,
-      grapeVariety: grapeVariety,
+      grappeVariety: grappeVariety,
       color: color,
       picture: picture,
     }})
