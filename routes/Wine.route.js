@@ -24,7 +24,9 @@ router.get("/bottles", (req, res) => {
 
 //form to sell a new bottle
 router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
-    const {
+  // let newUser = req.session.loggedInUser._id;
+  
+  const {
       name,
       year,
       price,
@@ -36,18 +38,15 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
       image,
     } = req.body;
 
-    console.log(req.body)
+    console.log("req.body IS:", req.body)
+    
+  // let newUser = req.session.loggedInUser._id;
+    console.log("req.session is:", req.session)
+    // console.log("req.session.loggedInUser is:", req.session.loggedInUser)
+    // console.log("req.session.loggedInUser._id is:", req.session.loggedInUser._id)
 
     WineModel.create({
-      name,
-      year,
-      price,
-      description,
-      country,
-      region,
-      grappeVariety,
-      color,
-      image,
+      ...req.body,
     })
       .then((response) => {
         res.status(200).json(response);
