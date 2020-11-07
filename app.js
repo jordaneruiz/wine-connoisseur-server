@@ -97,7 +97,8 @@ app.use('/api', authRoutes);
 const profileRoutes = require('./routes/profile.route')
 app.use('/api', profileRoutes);
 
-
+const fileUploads = require('./routes/file-upload.routes')
+app.use('/api', fileUploads);
 
 
 module.exports = app;

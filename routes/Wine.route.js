@@ -33,7 +33,7 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
       region,
       grappeVariety,
       color,
-      picture,
+      image,
     } = req.body;
 
     console.log(req.body)
@@ -47,7 +47,7 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
       region,
       grappeVariety,
       color,
-      picture,
+      image,
     })
       .then((response) => {
         res.status(200).json(response);
@@ -105,7 +105,7 @@ router.patch('/bottle/:bottleId', /*isLoggedIn,*/ (req, res) => {
       region,
       grappeVariety,
       color,
-      picture,
+      image,
     } = req.body;
 
     WineModel.findByIdAndUpdate(bottleId, {$set: {
@@ -117,7 +117,7 @@ router.patch('/bottle/:bottleId', /*isLoggedIn,*/ (req, res) => {
       region: region,
       grappeVariety: grappeVariety,
       color: color,
-      picture: picture,
+      image: image,
     }})
           .then((response) => {
                res.status(200).json(response)

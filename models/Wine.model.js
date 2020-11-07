@@ -33,7 +33,7 @@ const wineSchema = new mongoose.Schema({
   color: {
     type: String,
   },
-  picture: {
+  image: {
     type: String,
   }, 
 
