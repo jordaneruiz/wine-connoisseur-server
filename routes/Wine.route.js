@@ -3,7 +3,7 @@ const router = express.Router();
 
 let WineModel = require("../models/Wine.model");
 //for later
-//const { isLoggedIn } = require('../helpers/auth-helper'); // this is the middleware to check if user is loggedIn
+// const { isLoggedIn } = require('../helpers/auth-helper'); // this is the middleware to check if user is loggedIn
 
 //This will be used to displayed all the available bottles on the home page
 router.get("/bottles", (req, res) => {
@@ -23,7 +23,7 @@ router.get("/bottles", (req, res) => {
 
 
 //form to sell a new bottle
-router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
+router.post("/add-bottle", /*isLoggedIn,*/ (req, res) => {
   // let newUser = req.session.loggedInUser._id;
   
   const {
@@ -63,7 +63,7 @@ router.post("/add-bottle", /*isLoggedIn, */ (req, res) => {
 
 
 //to check a specific bottle's details
-router.get('/bottle/:bottleId', /*isLoggedIn, */ (req, res) => {
+router.get('/bottle/:bottleId', /*isLoggedIn,*/  (req, res) => {
   WineModel.findById(req.params.bottleId)
     .then((resp) => {
       res.status(200).json(resp)
@@ -78,7 +78,7 @@ router.get('/bottle/:bottleId', /*isLoggedIn, */ (req, res) => {
 
 
 //for the seller to delete one of his "for sale bottle"
-router.delete('/bottle/:bottleId', /*isLoggedIn, */ (req, res) => {
+router.delete('/bottle/:bottleId', /*isLoggedIn,*/ (req, res) => {
   WineModel.findByIdAndDelete(req.params.bottleId)
   .then((resp) => {
        res.status(200).json(resp)

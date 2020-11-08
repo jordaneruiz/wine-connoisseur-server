@@ -7,6 +7,9 @@ const WineModel = require("../models/Wine.model");
 //for user to access his own profile
 router.get("/profile", (req, res) => {
   let userData = req.session.loggedInUser;
+  // console.log("userData is: ", userData)
+  // console.log("req.session is: ", req.session)
+  // console.log("req.session.loggedInUser is: ", req.session.loggedInUser)
 
   UserModel.findById(userData)
     .then((user) => {
