@@ -3,11 +3,12 @@ const router = express.Router();
 
 let WineModel = require("../models/Wine.model");
 //for later
-// const { isLoggedIn } = require('../helpers/auth-helper'); // this is the middleware to check if user is loggedIn
+const { isLoggedIn } = require('../helpers/auth-helper'); // this is the middleware to check if user is loggedIn
 
 //This will be used to displayed all the available bottles on the home page
 router.get("/bottles", (req, res) => {
   WineModel.find()
+  // .populate('userSeller')
     .then((wines) => {
       res.status(200).json(wines);
     })
@@ -23,8 +24,8 @@ router.get("/bottles", (req, res) => {
 
 
 //form to sell a new bottle
-router.post("/add-bottle", /*isLoggedIn,*/ (req, res) => {
-  // let newUser = req.session.loggedInUser._id;
+router.post("/add-bottle", isLoggedIn, (req, res) => {
+  let wineSeller = req.session.loggedInUser._id;
   
   const {
       name,
@@ -38,16 +39,14 @@ router.post("/add-bottle", /*isLoggedIn,*/ (req, res) => {
       image,
     } = req.body;
 
-    console.log("req.body IS:", req.body)
-    
-  // let newUser = req.session.loggedInUser._id;
-    console.log("req.session is:", req.session)
-    // console.log("req.session.loggedInUser is:", req.session.loggedInUser)
-    // console.log("req.session.loggedInUser._id is:", req.session.loggedInUser._id)
+    // console.log("req.session is:", req.session)
+    // console.log("48 wineSeller is:", wineSeller)
 
     WineModel.create({
       ...req.body,
+      userSeller: wineSeller,
     })
+      // .populate('userSeller')
       .then((response) => {
         res.status(200).json(response);
       })
@@ -63,7 +62,7 @@ router.post("/add-bottle", /*isLoggedIn,*/ (req, res) => {
 
 
 //to check a specific bottle's details
-router.get('/bottle/:bottleId', /*isLoggedIn,*/  (req, res) => {
+router.get('/bottle/:bottleId', isLoggedIn,  (req, res) => {
   WineModel.findById(req.params.bottleId)
     .then((resp) => {
       res.status(200).json(resp)
@@ -78,7 +77,7 @@ router.get('/bottle/:bottleId', /*isLoggedIn,*/  (req, res) => {
 
 
 //for the seller to delete one of his "for sale bottle"
-router.delete('/bottle/:bottleId', /*isLoggedIn,*/ (req, res) => {
+router.delete('/bottle/:bottleId', isLoggedIn, (req, res) => {
   WineModel.findByIdAndDelete(req.params.bottleId)
   .then((resp) => {
        res.status(200).json(resp)
@@ -93,7 +92,7 @@ router.delete('/bottle/:bottleId', /*isLoggedIn,*/ (req, res) => {
 
 
 //for the seller to edit one of his "for sale bottle"
-router.patch('/bottle/:bottleId', /*isLoggedIn,*/ (req, res) => {
+router.patch('/bottle/:bottleId', isLoggedIn, (req, res) => {
     let bottleId = req.params.id
     const {
       name,

@@ -4,10 +4,12 @@ const router = express.Router();
 const UserModel = require("../models/User.model");
 const WineModel = require("../models/Wine.model");
 
+const { isLoggedIn } = require('../helpers/auth-helper'); // this is the middleware to check if user is loggedIn
+
 //for user to access his own profile
-router.get("/profile", (req, res) => {
-  let userData = req.session.loggedInUser;
-  // console.log("userData is: ", userData)
+router.get("/profile", isLoggedIn, (req, res) => {
+  let userData = req.session.loggedInUser._id;
+  console.log("userData is: ", userData)
   // console.log("req.session is: ", req.session)
   // console.log("req.session.loggedInUser is: ", req.session.loggedInUser)
 
@@ -16,6 +18,7 @@ router.get("/profile", (req, res) => {
       res.status(200).json(user);
     })
     .catch((err) => {
+      console.log(err)
       res.status(500).json({
         error: "Something went wrong",
         message: err,
@@ -41,7 +44,7 @@ router.patch("/profile/edit", (req, res) => {
 
 //for a loggedin user to see another user profile
 router.get("/profile/:userId", (req, res) => {
-  let userId = req.params.id;
+  let userId = req.params.userId;
 
   UserModel.findById(userId)
     .then((response) => {
