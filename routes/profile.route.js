@@ -32,9 +32,13 @@ router.patch("/profile/edit", (req, res) => {
 
   UserModel.findByIdAndUpdate(userId, { $set: { ...req.body } })
     .then((updatedProfile) => {
+      console.log(updatedProfile)
+
       res.status(200).json(updatedProfile);
     })
     .catch((err) => {
+      console.log(err)
+
       res.status(500).json({
         error: "Something went wrong",
         message: err,
