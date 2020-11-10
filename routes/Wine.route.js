@@ -38,6 +38,36 @@ router.get("/userBottles", (req, res) => {
     });
 });
 
+router.get("/userBottles/:userId", (req, res) => {
+  WineModel.find({userSeller: req.params.userId/*req.session.loggedInUser._id*/})
+  // .populate('userSeller')
+    .then((wines) => {
+      res.status(200).json(wines);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: "Something went wrong",
+        message: err,
+      });
+    });
+});
+
+// //other user's bottle
+// router.get("/otheruserbottles", (req, res) => {
+
+//   WineModel.find({userSeller: req.params.userSeller})
+//   // .populate('userSeller')
+//     .then((wines) => {
+//       res.status(200).json(wines);
+//     })
+//     .catch((err) => {
+//       res.status(500).json({
+//         error: "Something went wrong",
+//         message: err,
+//       });
+//     });
+// });
+
 //form to sell a new bottle
 router.post("/add-bottle", isLoggedIn, (req, res) => {
   let wineSeller = req.session.loggedInUser._id;

@@ -13,11 +13,11 @@ const MongoStore = require('connect-mongo') (session);
 //require('./config/database.config') // when I will have cloudinary
 
 
-
+let MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost/wine-connoisseur-server"
 
 
 mongoose
-  .connect('mongodb://localhost/wine-connoisseur-server', {useNewUrlParser: true})
+  .connect(MONGODB_URL, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -100,5 +100,7 @@ app.use('/api', profileRoutes);
 const fileUploads = require('./routes/file-upload.routes')
 app.use('/api', fileUploads);
 
+const stripeRoutes = require('./routes/stripe.routes')
+app.use('/api', stripeRoutes);
 
 module.exports = app;
