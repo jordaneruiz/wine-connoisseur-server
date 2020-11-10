@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo') (session);
 //require('./config/database.config') // when I will have cloudinary
 
 
-let MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost/wine-connoisseur-server"
+let MONGODB_URL =  "mongodb://localhost/wine-connoisseur-server"
 
 
 mongoose
