@@ -7,7 +7,7 @@ const { isLoggedIn } = require('../helpers/auth-helper'); // this is the middlew
 
 //This will be used to displayed all the available bottles on the home page
 router.get("/bottles", (req, res) => {
-  WineModel.find()
+  WineModel.find({userSeller: {$ne: null }}/*, {userSeller: {$ne: req.session.loggedInUser }}*/)
   // .populate('userSeller')
     .then((wines) => {
       res.status(200).json(wines);
@@ -25,7 +25,7 @@ router.get("/bottles", (req, res) => {
 
 //mybottles
 router.get("/userBottles", (req, res) => {
-  WineModel.find({userSeller: req.session.loggedInUser._id})
+  WineModel.find({userSeller: req.session.loggedInUser._id })
   // .populate('userSeller')
     .then((wines) => {
       res.status(200).json(wines);
@@ -37,6 +37,41 @@ router.get("/userBottles", (req, res) => {
       });
     });
 });
+
+//my purchased Bottles
+router.get("/userBottlesPurchased", (req, res) => {
+  WineModel.find({userBuyer: req.session.loggedInUser._id })
+    .then((wines) => {
+      res.status(200).json(wines);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: "Something went wrong",
+        message: err,
+      });
+    });
+});
+
+
+//my sold bottles
+router.get("/userBottlesSold", (req, res) => {
+  WineModel.find({ $and: [{saleStatus: true}, {userSeller: req.session.loggedInUser._id}] }) 
+    .then((sales) => {
+      console.log(req.session.loggedInUser._id)
+      sales.forEach(eachsales => {console.log(eachsales.saleStatus, eachsales.userSeller)})
+      res.status(200).json(sales);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: "Something went wrong",
+        message: err,
+      });
+    });
+});
+
+
+
+//, userBuyer: req.session.loggedInUser._id  {userSeller: req.session.loggedInUser._id }
 
 router.get("/userBottles/:userId", (req, res) => {
   WineModel.find({userSeller: req.params.userId/*req.session.loggedInUser._id*/})

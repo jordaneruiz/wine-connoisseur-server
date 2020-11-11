@@ -46,6 +46,11 @@ const wineSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+
+  saleStatus: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const WineModel = mongoose.model("Wine", wineSchema);

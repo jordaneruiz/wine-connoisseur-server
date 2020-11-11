@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
-  likedWines: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Wine",
-  },
+  // likedWines: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Wine",
+  // },
 });
 
 

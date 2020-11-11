@@ -44,6 +44,7 @@ router.patch("/profile/edit", (req, res) => {
         message: err,
       });
     });
+    
 });
 
 //for a loggedin user to see another user profile
