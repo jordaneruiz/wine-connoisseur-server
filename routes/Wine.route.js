@@ -7,7 +7,7 @@ const { isLoggedIn } = require('../helpers/auth-helper'); // this is the middlew
 
 //This will be used to displayed all the available bottles on the home page
 router.get("/bottles", (req, res) => {
-  WineModel.find({userSeller: {$ne: null }}/*, {userSeller: {$ne: req.session.loggedInUser }}*/)
+  WineModel.find({saleStatus: false}/*, {userSeller: {$ne: req.session.loggedInUser }}*/)
   // .populate('userSeller')
     .then((wines) => {
       res.status(200).json(wines);
@@ -25,7 +25,9 @@ router.get("/bottles", (req, res) => {
 
 //mybottles
 router.get("/userBottles", (req, res) => {
-  WineModel.find({userSeller: req.session.loggedInUser._id })
+  //WineModel.find({userSeller: req.session.loggedInUser._id })
+  WineModel.find({ $and: [{saleStatus: false}, {userSeller: req.session.loggedInUser._id}] }) 
+
   // .populate('userSeller')
     .then((wines) => {
       res.status(200).json(wines);
