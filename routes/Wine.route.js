@@ -78,7 +78,9 @@ router.get("/userBottlesSold", (req, res) => {
 //, userBuyer: req.session.loggedInUser._id  {userSeller: req.session.loggedInUser._id }
 
 router.get("/userBottles/:userId", (req, res) => {
-  WineModel.find({userSeller: req.params.userId/*req.session.loggedInUser._id*/})
+  //WineModel.find({userSeller: req.params.userId/*req.session.loggedInUser._id*/})
+  WineModel.find({ $and: [{saleStatus: false}, {userSeller: req.params.userId}] }) 
+
   // .populate('userSeller')
     .then((wines) => {
       res.status(200).json(wines);
