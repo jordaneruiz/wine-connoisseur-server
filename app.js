@@ -88,19 +88,19 @@ app.use(
 // const index = require('./routes/index');
 // app.use('/', index);
 
-const wineRoutes = require('./routes/wine.route');
+const wineRoutes = require('./routes/wine.route.js');
 app.use('/api', wineRoutes);
 
-const authRoutes = require('./routes/auth.routes')
+const authRoutes = require('./routes/auth.routes.js')
 app.use('/api', authRoutes);
 
-const profileRoutes = require('./routes/profile.route')
+const profileRoutes = require('./routes/profile.route.js')
 app.use('/api', profileRoutes);
 
-const fileUploads = require('./routes/file-upload.routes')
+const fileUploads = require('./routes/file-upload.routes.js')
 app.use('/api', fileUploads);
 
-const stripeRoutes = require('./routes/stripe.routes')
+const stripeRoutes = require('./routes/stripe.routes.js')
 app.use('/api', stripeRoutes);
 
 module.exports = app;
