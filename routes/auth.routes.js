@@ -23,23 +23,23 @@ router.post('/signup', (req, res) => {
       return;  
   }
 
-  // const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
-  // if (!myRegex.test(email)) {
-  //     res.status(500)
-  //       .json({
-  //         errorMessage: 'Email format not correct'//how to show the error message the server is sending? in the catch block in the signin blaoc in app.js in User side
-  //     });
-  //     return;  
-  // }
+  const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
+  if (!myRegex.test(email)) {
+      res.status(500)
+        .json({
+          errorMessage: 'Email format not correct'//how to show the error message the server is sending? in the catch block in the signin blaoc in app.js in User side
+      });
+      return;  
+  }
 
-  // const myPassRegex = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/);
-  // if (!myPassRegex.test(password)) {
-  //   res.status(500)
-  //       .json({
-  //         errorMessage: 'Password needs to have 8 characters, a number and an Uppercase alphabet'
-  //       });
-  //     return;  
-  // }
+  const myPassRegex = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/);
+  if (!myPassRegex.test(password)) {
+    res.status(500)
+        .json({
+          errorMessage: 'Password needs to have 8 characters, a number and an Uppercase alphabet'
+        });
+      return;  
+  }
 
 
 
@@ -90,7 +90,7 @@ router.post('/signin', (req, res) => {
   const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
   if (!myRegex.test(email)) {
       res.status(500).json({
-          error: '1-Email format not correct',
+          error: 'Email format not correct',
       })
       return;  
   }
@@ -120,7 +120,7 @@ router.post('/signin', (req, res) => {
         })
         .catch(() => {
             res.status(500).json({
-                error: '2-Email format not correct',
+                error: 'Email format not correct',
             })
           return; 
         });
@@ -129,7 +129,7 @@ router.post('/signin', (req, res) => {
   //throw an error if the user does not exists 
   .catch((err) => {
     res.status(500).json({
-        error: 'Email format not correct',
+        error: 'Email not registered',
         message: err
     })
     return;  
