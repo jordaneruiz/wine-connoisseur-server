@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo') (session);
 //require('./config/database.config') // when I will have cloudinary
 
 
-let MONGODB_URL =  "mongodb://localhost/wine-connoisseur-server"
+let MONGODB_URL =  process.env.MONGODB_URL || "mongodb://localhost/wine-connoisseur-server"
 
 
 mongoose
@@ -35,7 +35,7 @@ const app = express();
 const cors = require('cors')
 app.use(cors({
   credentials: true, 
-  origin: ['http://localhost:3000']
+  origin: ['http://localhost:3000', process.env.PUBLIC_DOMAIN]
 }))
 
 // Middleware Setup
