@@ -30,7 +30,7 @@ router.get("/profile", isLoggedIn, (req, res) => {
 router.patch("/profile/edit", (req, res) => {
   let userId = req.session.loggedInUser._id;
 
-  UserModel.findByIdAndUpdate(userId, { $set: { ...req.body } })
+  UserModel.findByIdAndUpdate(userId, { $set: { ...req.body } }, {new: true})
     .then((updatedProfile) => {
       console.log(updatedProfile)
 
@@ -44,7 +44,7 @@ router.patch("/profile/edit", (req, res) => {
         message: err,
       });
     });
-    
+
 });
 
 //for a loggedin user to see another user profile
