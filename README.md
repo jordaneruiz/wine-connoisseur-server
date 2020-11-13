@@ -1,28 +1,26 @@
-#WINE CONNOISSEUR 
+# WINE CONNOISSEUR 
 
-##Description 
-This app allows Wine collectors and lovers to buy very rare and exceptional bottles of wine. On the other side, people who owns wine but does not appreciate it can sell it. 
+## Description 
+This app allows Wine collectors and lovers to buy very rare and exceptional bottles of wine. On the other side, people who own wine but do not appreciate it can sell it. 
 
-##User Stories 
-- 404: If a page that does not exist a 404 page will appear to redirect me to an existing page
-- Signup: User can Sign up in the platform to sell or buy a bottle
-- Login: User can Sign in in the platform to sell or buy a bottle
-- Logout: User can logout from the platform so his sells are safe / no one can purchase under his name 
-- Add a bottle for sale: User can add a new bottle for sell
-- Delete bottle: User can delete any bottle he was selling
-- User Profile: both Seller and buyer have a profile with a biography, a picture and previous sells or previous purchases. Each of them can check other sellers / buyers’ profile
-- Payment: as soon as user clicks “buy it”, he can enter his payment information details 
-- Search & filter: to improve the user’s research he can filter the wine per year / color / country
+## User Stories 
+- **Signup:** User can Sign up in the platform to sell or buy a bottle
+- **Login:** User can Sign in in the platform to sell or buy a bottle
+- **Logout:** User can logout from the platform so his sells are safe / no one can purchase under his name 
+- **Add a bottle for sale:** user can add a new bottle for sale
+- **Delete bottle:** User can delete any bottle he was selling
+- **User Profile:** both seller and buyer have a profile with a biography, a picture and previous sells or previous purchases. Each one of them can check other sellers / buyers’ profile
+- **Payment:** as soon as a user clicks “buy it”, he can enter his payment information details 
+- **Search & filter:** to improve the user’s research he can filter the wine per name and sorti it by year and price
 
-##Backlog 
+## Backlog 
 - Message or comments section: allows user and buyers to discuss about the wine specificity 
 - Sophisticated payment system
 - More filter option: grape variety
 
 
-#Client / Frontend
-##React Router Routes (React App)
-
+# Client / Frontend
+## React Router Routes (React App)
 
 **/**
 - **Component:** Home - Search - Filter - All Wines List	
@@ -100,7 +98,7 @@ This app allows Wine collectors and lovers to buy very rare and exceptional bott
 
 
           
-##Components
+## Components
 - SignIn
 - SignUp
 - NavBar
@@ -116,11 +114,11 @@ This app allows Wine collectors and lovers to buy very rare and exceptional bott
 - PaymentForm
 - MessagesPage
 
-#Server / Backend
+# Server / Backend
 <br>
-##Models
+## Models
 
-##User model 
+## User model 
 ```javascript
 name: {
       type: String,
@@ -149,7 +147,7 @@ name: {
 ```
 
 
-##Wine model 
+## Wine model 
 ```javascript
 name: {
       type: String,
@@ -185,7 +183,7 @@ user: {
   }
 ```
 
-##Message Model 
+## Message Model 
 ```javascript
 sender: {
     type: Schema.Types.ObjectId,
@@ -204,9 +202,9 @@ sender: {
 ```
 
 
-#API Endpoints (backend routes)
+# API Endpoints (backend routes)
 
-##HTTP Method	URL	Description
+## HTTP Method	URL	Description
 
 **POST**	
 - /auth/signup	
@@ -270,3 +268,18 @@ sender: {
 - /message/received/:id	
 - Read a message we received
 
+
+# Links
+
+## Trello
+[Link trello board](https://trello.com/b/4olQdapz/project-3-wine-connoisseur) 
+
+## Git 
+[Client repository Link](https://github.com/jordaneruiz/wine-connoisseur-client)
+
+[Server repository Link](https://github.com/jordaneruiz/wine-connoisseur-server)
+
+[Deployed App Link](https://wine-connoisseur.herokuapp.com/)
+
+## Slides
+[Slides Link](https://drive.google.com/file/d/11P0sXuTTZA3o8f6S9R1QFd8ayqfrM2aw/view?usp=sharing)
