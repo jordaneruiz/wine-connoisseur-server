@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
 
-// const wineSchema = new Schema({
 
 const wineSchema = new mongoose.Schema({
+  
+  
   name: {
     type: String,
     required: true,
@@ -38,15 +38,15 @@ const wineSchema = new mongoose.Schema({
     type: String,
   }, 
 
-  userSeller: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
+  // userSeller: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  // },
 
-  userBuyer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
+  // userBuyer: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  // },
 
   saleStatus: {
     type: Boolean,
@@ -54,5 +54,6 @@ const wineSchema = new mongoose.Schema({
   },
 });
 
-const WineModel = mongoose.model("Wine", wineSchema);
+const WineModel = mongoose.model("bottles", wineSchema);
+
 module.exports = WineModel;

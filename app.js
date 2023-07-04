@@ -1,5 +1,8 @@
 require('dotenv').config();
 
+
+
+
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
@@ -13,17 +16,43 @@ const MongoStore = require('connect-mongo') (session);
 //require('./config/database.config') // when I will have cloudinary
 
 
-let MONGODB_URL =  process.env.MONGODB_URL || "mongodb://localhost/wine-connoisseur-server"
+const { MongoClient } = require('mongodb');
+
+let MONGODB_URL =  process.env.MONGODB_URL || `mongodb+srv://jordaneruiz:${encodedPassword}@wine-db.opy3phj.mongodb.net/`
+
+console.log(`MONGODB_URL: "${MONGODB_URL}"`)
+
+async function listDatabases(client){
+  databasesList = await client.db().admin().listDatabases();
+
+  console.log("Databases:");
+  databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
+
+const client = new MongoClient(MONGODB_URL);
+console.log(`client: "${client}"`)
+
+client.connect();
+listDatabases(client);
 
 
-mongoose
-  .connect(MONGODB_URL, {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-  })
-  .catch(err => {
-    console.error('Error connecting to mongo', err)
-  });
+
+mongoose.connect(MONGODB_URL, {
+  bufferCommands: false, // Disable command buffering
+  // bufferMaxEntries: 0, // Disable command buffering
+  serverSelectionTimeoutMS: 30000, // Set the server selection timeout
+  socketTimeoutMS: 45000, // Set the socket timeout
+});
+
+
+// mongoose
+//   .connect(MONGODB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+//   .then(x => {
+//     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+//   })
+//   .catch(err => {
+//     console.error('Error connecting to mongo', err)
+//   });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -35,7 +64,7 @@ const app = express();
 const cors = require('cors')
 app.use(cors({
   credentials: true, 
-  origin: ['http://localhost:3000', process.env.PUBLIC_DOMAIN]
+  origin: [`mongodb+srv://jordaneruiz:${encodedPassword}@wine-db.opy3phj.mongodb.net/`, "http://localhost:3000"]
 }))
 
 // Middleware Setup
@@ -45,16 +74,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Express View engine setup
-
-
-
-
-
-
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
 
 
 
@@ -77,12 +97,6 @@ app.use(
 );
 
 
-
-
-
-
-
-
 //Register routes
 
 // const index = require('./routes/index');
@@ -103,4 +117,13 @@ app.use('/api', fileUploads);
 const stripeRoutes = require('./routes/stripe.routes.js')
 app.use('/api', stripeRoutes);
 
+
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled rejection at:', promise, 'reason:', reason);
+});
 module.exports = app;
